@@ -6,6 +6,7 @@ package recursos;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import daos.UsuarioDAO;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -26,6 +27,10 @@ public class RecursoUsuario {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsuario() {
         Usuario usuario = new Usuario(01, "Prueba", "prueba@gmail", "****");
+        Usuario temp = new Usuario( 01,"PRRRROB", "prueba@gmail", "****");
+        
+        UsuarioDAO dao = new UsuarioDAO();
+        System.out.println(dao.delete(1));
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonUsuario = null;
