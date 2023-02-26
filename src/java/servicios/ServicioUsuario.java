@@ -4,57 +4,71 @@
  */
 package servicios;
 
+import controladores.ControlUsuario;
 import java.util.List;
 import modelos.Usuario;
 import simulacionBD.DataBaseUser;
 
 /**
  *
- * @author 
+ * @author
  */
 public class ServicioUsuario {
-    
+
     private List<Usuario> userList = DataBaseUser.getInstance().getList();
-    
-    public List<Usuario> getUsers(){
+    private ControlUsuario controlUsuario;
+
+    public ServicioUsuario() {
+        this.controlUsuario = new ControlUsuario();
+    }
+
+    public List<Usuario> getUsers() {
         return userList;
     }
-    
-    public Usuario getUser(int id){
-        for(Usuario usuario : userList){
-            if(usuario.getId() == id){
+
+    public Usuario getUser(int id) {
+        for (Usuario usuario : userList) {
+            if (usuario.getId() == id) {
                 return usuario;
             }
         }
         return null;
     }
-    
-    public Usuario addUser(Usuario usuario){
-        usuario.setId(getLast());
-        userList.add(usuario);
+
+    public Usuario getUserByName(String name) {
+        return controlUsuario.findByName(name).get(0);
+    }
+
+    public Usuario getUserByEmail(String email) {
+        return controlUsuario.findByEmail(email).get(0);
+    }
+
+    public Usuario addUser(Usuario usuario) {
+        //usuario.setId(getLast());
+        controlUsuario.create(usuario);
+        //userList.add(usuario);
         return usuario;
     }
-    
-    public void deleteUser(int id){
+
+    public void deleteUser(int id) {
         int position = getPosition(id);
         userList.remove(position);
     }
-    
-    private int getPosition(int id){
-        for(int i = 0; i < userList.size(); i++){
-            if (userList.get(i).getId() == id){
+
+    private int getPosition(int id) {
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getId() == id) {
                 return i;
             }
         }
         return -1;
     }
-            
-    private int getLast(){
+
+    private int getLast() {
         int size = userList.size();
-        if (size >0){
+        if (size > 0) {
             return userList.get(size - 1).getId() + 1;
-        }
-        else {
+        } else {
             return 1;
         }
     }

@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 public class ConexionSQLite {
 
-    // Ruta relativa de la base de datos
     private static final String URL = "C:\\Temp\\ITSON\\distribuidos\\ServicioRESTFul\\CruzAzul.db";
 
     // Método para conectar a la base de datos

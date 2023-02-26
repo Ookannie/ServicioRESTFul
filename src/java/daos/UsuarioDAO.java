@@ -33,7 +33,7 @@ public class UsuarioDAO implements IDAO<Usuario> {
 
     @Override
     public Usuario getById(int id) {
-        String sql = "SELECT * FROM Usuarios WHERE ID = ?";
+        String sql = "SELECT * FROM usuarios WHERE ID = ?";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setInt(1, id);
@@ -57,7 +57,7 @@ public class UsuarioDAO implements IDAO<Usuario> {
     }
 
     public List<Usuario> getAll() {
-        String sql = "SELECT * FROM Usuarios";
+        String sql = "SELECT * FROM usuarios";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
@@ -162,7 +162,7 @@ public class UsuarioDAO implements IDAO<Usuario> {
 
     @Override
     public boolean create(Usuario usuario) {
-        String sql = "INSERT INTO Usuarios (ID, NombreCompleto, Correo, Contrasenia) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO usuarios (ID, NombreCompleto, Correo, Contrasenia) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement query = conexion.prepareStatement(sql);
             query.setInt(1, usuario.getId());
@@ -180,7 +180,7 @@ public class UsuarioDAO implements IDAO<Usuario> {
 
     @Override
     public boolean update(Usuario usuario) {
-        String sql = "UPDATE Usuarios SET NombreCompleto = ?, Correo = ?, Contrasenia = ? WHERE ID = ?";
+        String sql = "UPDATE usuarios SET NombreCompleto = ?, Correo = ?, Contrasenia = ? WHERE ID = ?";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setString(1, usuario.getNombreCompleto());
@@ -198,7 +198,7 @@ public class UsuarioDAO implements IDAO<Usuario> {
 
     @Override
     public boolean delete(int id) {
-        String sql = "DELETE FROM Usuarios WHERE ID = ?";
+        String sql = "DELETE FROM usuarios WHERE ID = ?";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setInt(1, id);

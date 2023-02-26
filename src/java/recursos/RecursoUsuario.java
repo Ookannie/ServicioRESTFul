@@ -21,16 +21,14 @@ import servicios.ServicioUsuario;
 
 /**
  *
- * @author 
+ * @author
  */
-
 @Path("/usuario")
 public class RecursoUsuario {
-    
+
     ServicioUsuario userService = new ServicioUsuario();
-    
-    private String objectToString(Object object)
-    {
+
+    private String objectToString(Object object) {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = null;
         try {
@@ -40,21 +38,19 @@ public class RecursoUsuario {
         }
         return jsonString;
     }
-    
+
     private Usuario stringToUser(String jsonString) {
         ObjectMapper mapper = new ObjectMapper();
         Usuario usuario = new Usuario();
         try {
-         usuario = mapper.readValue(jsonString, Usuario.class);
-        }
-        catch(JsonProcessingException e) {
+            usuario = mapper.readValue(jsonString, Usuario.class);
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-       
+
         return usuario;
     }
-    
-    
+
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
@@ -72,20 +68,35 @@ public class RecursoUsuario {
         Usuario usuario = userService.getUser(id);
         return Response.status(Response.Status.OK).entity(objectToString(usuario)).build();
     }
+
+    @GET
+    @Path("/name={userName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserByName(@PathParam("userName") String name) {
+        Usuario usuario = userService.getUserByName(name);
+        return Response.status(Response.Status.OK).entity(objectToString(usuario)).build();
+    }
     
+    @GET
+    @Path("/email={userEmail}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserByEmail(@PathParam("userEmail") String email) {
+        Usuario usuario = userService.getUserByEmail(email);
+        return Response.status(Response.Status.OK).entity(objectToString(usuario)).build();
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addUser(String usuario)
-    {
-        userService.addUser(stringToUser(usuario));
-        return Response.status(Response.Status.OK).entity(usuario).build();
+    public Response addUser(String usuarioJSON) {
+        Usuario usuario = stringToUser(usuarioJSON);
+        userService.addUser(usuario);
+        return Response.status(Response.Status.OK).entity(usuarioJSON).build();
     }
-    
+
     @DELETE
     @Path("/{userId}")
-    public void deleteUser(@PathParam("userId") int id)
-    {
+    public void deleteUser(@PathParam("userId") int id) {
         userService.deleteUser(id);
     }
 }
