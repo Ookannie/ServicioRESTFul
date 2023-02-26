@@ -6,6 +6,8 @@ package modelos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -28,6 +30,12 @@ public class Publicacion {
     @JsonProperty("id_usr")
     private int idUsr;
 
+    @JsonProperty("fecha")
+    private Calendar fecha;
+
+    @JsonProperty("autor")
+    private String autor;
+
     public Publicacion() {
     }
 
@@ -46,6 +54,14 @@ public class Publicacion {
         this.idUsr = idUsr;
     }
 
+    public Publicacion(int id, String titulo, String texto, String autor) {
+        this.id = id;
+        this.titulo = titulo;
+        this.texto = texto;
+        this.autor = autor;
+        this.fecha = new GregorianCalendar();
+    }
+
     public int getId() {
         return id;
     }
@@ -60,6 +76,14 @@ public class Publicacion {
 
     public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
+    }
+
+    public Calendar getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Calendar fecha) {
+        this.fecha = fecha;
     }
 
     public String getTitulo() {
@@ -84,5 +108,13 @@ public class Publicacion {
 
     public void setIdUsr(int idUsr) {
         this.idUsr = idUsr;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 }
