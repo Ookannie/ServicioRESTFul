@@ -15,18 +15,28 @@ public class Comentario {
 
     @JsonProperty("id")
     private int id;
-    
+
     @JsonProperty("fecha_hora")
     private LocalDateTime fechaHora;
-    
+
     @JsonProperty("texto")
     private String texto;
-    
+
     @JsonProperty("id_usr")
     private int idUsr;
-    
+
     @JsonProperty("id_pub")
     private int idPub;
+
+    public Comentario() {
+    }
+
+    public Comentario(LocalDateTime fechaHora, String texto, int idUsr, int idPub) {
+        this.fechaHora = fechaHora;
+        this.texto = texto;
+        this.idUsr = idUsr;
+        this.idPub = idPub;
+    }
 
     public Comentario(int id, LocalDateTime fechaHora, String texto, int idUsuario, int idPublicacion) {
         this.id = id;

@@ -84,13 +84,13 @@ public class UsuarioDAO implements IDAO<Usuario> {
     public boolean create(Usuario usuario) {
         String sql = "INSERT INTO usuarios (ID, NombreCompleto, Correo, Contrasenia) VALUES (?, ?, ?, ?)";
         try {
-            PreparedStatement query = conexion.prepareStatement(sql);
-            query.setInt(1, usuario.getId());
-            query.setString(2, usuario.getNombreCompleto());
-            query.setString(3, usuario.getCorreo());
-            query.setString(4, usuario.getContrasenia());
-            query.executeUpdate();
-            query.close();
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setInt(1, usuario.getId());
+            statement.setString(2, usuario.getNombreCompleto());
+            statement.setString(3, usuario.getCorreo());
+            statement.setString(4, usuario.getContrasenia());
+            statement.executeUpdate();
+            statement.close();
             return true;
         } catch (SQLException ex) {
             System.out.println("Error al insertar el usuario en la base de datos: " + ex.getMessage());

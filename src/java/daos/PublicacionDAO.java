@@ -86,13 +86,14 @@ public class PublicacionDAO implements IDAO<Publicacion> {
 
     @Override
     public boolean create(Publicacion publicacion) {
-        String sql = "INSERT INTO publicaciones (FechaHora, Titulo, Texto, ID_Usr) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO publicaciones (ID, FechaHora, Titulo, Texto, ID_Usr) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
-            statement.setString(1, publicacion.getFechaHora().toString());
-            statement.setString(2, publicacion.getTitulo());
-            statement.setString(3, publicacion.getTexto());
-            statement.setInt(4, publicacion.getIdUsr());
+            statement.setInt(1, publicacion.getId());
+            statement.setString(2, publicacion.getFechaHora().toString());
+            statement.setString(3, publicacion.getTitulo());
+            statement.setString(4, publicacion.getTexto());
+            statement.setInt(5, publicacion.getIdUsr());
             statement.executeUpdate();
             statement.close();
             return true;

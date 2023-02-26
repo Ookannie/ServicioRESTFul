@@ -30,7 +30,7 @@ public class RecursoUsuario {
         Usuario temp = new Usuario( 01,"PRRRROB", "prueba@gmail", "****");
         
         UsuarioDAO dao = new UsuarioDAO();
-        System.out.println(dao.delete(1));
+        //System.out.println(dao.delete(1));
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonUsuario = null;
