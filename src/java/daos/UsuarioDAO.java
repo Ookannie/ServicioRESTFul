@@ -80,17 +80,97 @@ public class UsuarioDAO implements IDAO<Usuario> {
         }
     }
 
+    public List<Usuario> getAllByNameAndEmail(String nombreCompleto, String correo) {
+        String sql = "SELECT * FROM usuarios WHERE 1=1 ";
+        if (nombreCompleto != null && !nombreCompleto.isEmpty()) {
+            sql += "AND NombreCompleto LIKE '%" + nombreCompleto + "%' ";
+        }
+        if (correo != null && !correo.isEmpty()) {
+            sql += "AND Correo LIKE '%" + correo + "%' ";
+        }
+        try {
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            List<Usuario> usuarios = new ArrayList<>();
+            while (resultSet.next()) {
+                Usuario usuario = new Usuario(
+                        resultSet.getInt("ID"),
+                        resultSet.getString("NombreCompleto"),
+                        resultSet.getString("Correo"),
+                        resultSet.getString("Contrasenia")
+                );
+                usuarios.add(usuario);
+            }
+            resultSet.close();
+            statement.close();
+            return usuarios;
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los usuarios de la base de datos: " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public List<Usuario> findByEmail(String correo) {
+        String sql = "SELECT * FROM usuarios WHERE Correo = ?";
+        try {
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setString(1, correo);
+            ResultSet resultSet = statement.executeQuery();
+            List<Usuario> usuarios = new ArrayList<>();
+            while (resultSet.next()) {
+                Usuario usuario = new Usuario(
+                        resultSet.getInt("ID"),
+                        resultSet.getString("NombreCompleto"),
+                        resultSet.getString("Correo"),
+                        resultSet.getString("Contrasenia")
+                );
+                usuarios.add(usuario);
+            }
+            resultSet.close();
+            statement.close();
+            return usuarios;
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar usuarios por correo en la base de datos: " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public List<Usuario> findByName(String nombre) {
+        String sql = "SELECT * FROM usuarios WHERE NombreCompleto LIKE ?";
+        try {
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setString(1, "%" + nombre + "%");
+            ResultSet resultSet = statement.executeQuery();
+            List<Usuario> usuarios = new ArrayList<>();
+            while (resultSet.next()) {
+                Usuario usuario = new Usuario(
+                        resultSet.getInt("ID"),
+                        resultSet.getString("NombreCompleto"),
+                        resultSet.getString("Correo"),
+                        resultSet.getString("Contrasenia")
+                );
+                usuarios.add(usuario);
+            }
+            resultSet.close();
+            statement.close();
+            return usuarios;
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar usuarios por nombre en la base de datos: " + ex.getMessage());
+            return null;
+        }
+    }
+
     @Override
     public boolean create(Usuario usuario) {
         String sql = "INSERT INTO usuarios (ID, NombreCompleto, Correo, Contrasenia) VALUES (?, ?, ?, ?)";
         try {
-            PreparedStatement query = conexion.prepareStatement(sql);
-            query.setInt(1, usuario.getId());
-            query.setString(2, usuario.getNombreCompleto());
-            query.setString(3, usuario.getCorreo());
-            query.setString(4, usuario.getContrasenia());
-            query.executeUpdate();
-            query.close();
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setInt(1, usuario.getId());
+            statement.setString(2, usuario.getNombreCompleto());
+            statement.setString(3, usuario.getCorreo());
+            statement.setString(4, usuario.getContrasenia());
+            statement.executeUpdate();
+            statement.close();
             return true;
         } catch (SQLException ex) {
             System.out.println("Error al insertar el usuario en la base de datos: " + ex.getMessage());

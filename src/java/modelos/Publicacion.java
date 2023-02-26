@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
  *
  * @author
  */
-public class Publicacion {
+public class PublicacionT {
 
     @JsonProperty("id")
     private int id;
@@ -30,6 +30,7 @@ public class Publicacion {
     @JsonProperty("id_usr")
     private int idUsr;
 
+<<<<<<< HEAD:src/java/modelos/Publicacion.java
     @JsonProperty("fecha")
     private Calendar fecha;
 
@@ -37,9 +38,12 @@ public class Publicacion {
     private String autor;
 
     public Publicacion() {
+=======
+    public PublicacionT() {
+>>>>>>> bd:src/java/modelos/PublicacionT.java
     }
 
-    public Publicacion(int id, LocalDateTime fechaHora, String titulo, String texto, int idUsr) {
+    public PublicacionT(int id, LocalDateTime fechaHora, String titulo, String texto, int idUsr) {
         this.id = id;
         this.fechaHora = fechaHora;
         this.titulo = titulo;
@@ -47,7 +51,7 @@ public class Publicacion {
         this.idUsr = idUsr;
     }
 
-    public Publicacion(LocalDateTime fechaHora, String titulo, String texto, int idUsr) {
+    public PublicacionT(LocalDateTime fechaHora, String titulo, String texto, int idUsr) {
         this.fechaHora = fechaHora;
         this.titulo = titulo;
         this.texto = texto;

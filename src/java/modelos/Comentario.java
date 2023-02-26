@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  *
  * @author
  */
-public class Comentario {
+public class ComentarioT {
 
     @JsonProperty("id")
     private int id;
@@ -28,11 +28,25 @@ public class Comentario {
     @JsonProperty("id_pub")
     private int idPub;
 
+<<<<<<< HEAD:src/java/modelos/Comentario.java
     //@JsonProperty("fecha")  private Calendar fecha;
     @JsonProperty("autor")
     private String autor;
 
     public Comentario(int id, LocalDateTime fechaHora, String texto, int idUsuario, int idPublicacion) {
+=======
+    public ComentarioT() {
+    }
+
+    public ComentarioT(LocalDateTime fechaHora, String texto, int idUsr, int idPub) {
+        this.fechaHora = fechaHora;
+        this.texto = texto;
+        this.idUsr = idUsr;
+        this.idPub = idPub;
+    }
+
+    public ComentarioT(int id, LocalDateTime fechaHora, String texto, int idUsuario, int idPublicacion) {
+>>>>>>> bd:src/java/modelos/ComentarioT.java
         this.id = id;
         this.fechaHora = fechaHora;
         this.texto = texto;
