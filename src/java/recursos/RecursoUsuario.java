@@ -25,7 +25,7 @@ public class RecursoUsuario {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsuario() {
-        Usuario usuario = new Usuario("01", "Prueba", "prueba@gmail", "****");
+        Usuario usuario = new Usuario(01, "Prueba", "prueba@gmail", "****");
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonUsuario = null;

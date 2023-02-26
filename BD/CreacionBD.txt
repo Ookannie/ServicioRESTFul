@@ -1,0 +1,33 @@
+
+
+-- Seleccionar la base de datos
+USE CruzAzul;
+
+-- Crear la tabla usuarios
+CREATE TABLE usuarios (
+  ID INT PRIMARY KEY,
+  NombreCompleto VARCHAR(50),
+  Correo VARCHAR(100),
+  Contrasenia VARCHAR(10)
+);
+
+-- Crear la tabla publicaciones
+CREATE TABLE publicaciones (
+  ID INT PRIMARY KEY,
+  FechaHora DATETIME,
+  Titulo VARCHAR(100),
+  Texto VARCHAR(255),
+  ID_Usr INT,
+  FOREIGN KEY (ID_Usr) REFERENCES Usuario(ID)
+);
+
+-- Crear la tabla comentarios
+CREATE TABLE comentarios (
+  ID INT PRIMARY KEY,
+  FechaHora DATETIME,
+  Texto VARCHAR(255),
+  ID_Usr INT,
+  ID_Pub INT,
+  FOREIGN KEY (ID_Usr) REFERENCES Usuario(ID),
+  FOREIGN KEY (ID_Pub) REFERENCES Publicacion(ID)
+);

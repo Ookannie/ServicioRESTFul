@@ -4,13 +4,19 @@ import  com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Usuario {
     @JsonProperty("id")
-    private String id;
+    private int id;
     
     @JsonProperty("nombre_completo")
     private String nombreCompleto;
     
     @JsonProperty("correo")
     private String correo;
+
+    public Usuario(String nombreCompleto, String correo, String contrasenia) {
+        this.nombreCompleto = nombreCompleto;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+    }
     
     @JsonProperty("contrasenia")
     private String contrasenia;
@@ -19,18 +25,18 @@ public class Usuario {
     }
 
     
-    public Usuario(String id, String nombreCompleto, String correo, String contrasenia) {
+    public Usuario(int id, String nombreCompleto, String correo, String contrasenia) {
         this.id = id;
         this.nombreCompleto = nombreCompleto;
         this.correo = correo;
         this.contrasenia = contrasenia;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
