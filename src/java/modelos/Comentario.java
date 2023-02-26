@@ -5,6 +5,7 @@
 package modelos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -13,26 +14,67 @@ import java.util.GregorianCalendar;
  * @author alexj
  */
 public class Comentario {
-    @JsonProperty("id")     private int id;
-    @JsonProperty("fecha")  private Calendar fecha;
-    @JsonProperty("texto")  private String texto;
-    @JsonProperty("autor")  private String autor;
-    @JsonProperty("id_usr") private int id_usr;
-    @JsonProperty("id_pub") private int id_pub;
+
+    @JsonProperty("id")
+    private int id;
+    
+    @JsonProperty("fecha")
+    private Calendar fecha_hora;
+    
+    @JsonProperty("fecha_hora")
+    private LocalDateTime fechaHora;
+    
+    @JsonProperty("texto")
+    private String texto;
+    
+    @JsonProperty("id_usr")
+    private int id_usr;
+    
+    @JsonProperty("id_pub")
+    private int id_pub;
 
     public Comentario() {
     }
 
+    public Comentario(int id, Calendar fecha_hora, LocalDateTime fechaHora, String texto, int id_usr, int id_pub) {
+        this.id = id;
+        this.fecha_hora = fecha_hora;
+        this.fechaHora = fechaHora;
+        this.texto = texto;
+        this.id_usr = id_usr;
+        this.id_pub = id_pub;
+    }
+
+    public Comentario(int id, LocalDateTime fechaHora, String texto, int id_usr, int id_pub) {
+        this.id = id;
+        this.fechaHora = fechaHora;
+        this.texto = texto;
+        this.id_usr = id_usr;
+        this.id_pub = id_pub;
+    }
+
+    
     public Comentario(int id, String texto, String autor, int id_usr, int id_pub) {
         this.id = id;
         this.texto = texto;
-        this.autor = autor;
         this.id_usr = id_usr;
         this.id_pub = id_pub;
-        this.fecha = new GregorianCalendar();
+        this.fecha_hora = new GregorianCalendar();
     }
 
-    /*************Gets y Sets************/
+    public Comentario(Calendar fecha_hora, LocalDateTime fechaHora, String texto, int id_usr, int id_pub) {
+        this.fecha_hora = fecha_hora;
+        this.fechaHora = fechaHora;
+        this.texto = texto;
+        this.id_usr = id_usr;
+        this.id_pub = id_pub;
+    }
+    
+    
+
+    /**
+     * ***********Gets y Sets***********
+     */
     public int getId() {
         return id;
     }
@@ -42,11 +84,11 @@ public class Comentario {
     }
 
     public Calendar getFecha() {
-        return fecha;
+        return fecha_hora;
     }
 
     public void setFecha(Calendar fecha) {
-        this.fecha = fecha;
+        this.fecha_hora = fecha;
     }
 
     public String getTexto() {
@@ -55,14 +97,6 @@ public class Comentario {
 
     public void setTexto(String texto) {
         this.texto = texto;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
     }
 
     public int getId_usr() {
@@ -80,4 +114,14 @@ public class Comentario {
     public void setId_pub(int id_pub) {
         this.id_pub = id_pub;
     }
+
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+    
+    
 }
