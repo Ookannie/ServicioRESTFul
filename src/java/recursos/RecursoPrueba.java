@@ -16,8 +16,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import modelos.Usuario;
-import modelos.Publicacion;
-import modelos.Comentario;
+import modelos.PublicacionT;
+import modelos.ComentarioT;
 
 /**
  *
@@ -36,12 +36,12 @@ public class RecursoPrueba {
 
         //Publicacion publicacion1 = new Publicacion(1, LocalDateTime.now(), "Titulo 2", "Textoxxxxx 1", 1);
         //boolean success = publicacionDAO.update(publicacion1);
-        Publicacion publicacion2 = new Publicacion(LocalDateTime.now(), "AAAAAAAAH", "Nuevo texto", 1);
+        PublicacionT publicacion2 = new PublicacionT(LocalDateTime.now(), "AAAAAAAAH", "Nuevo texto", 1);
         // publicacionDAO.create(publicacion2);
 
         // publicacionDAO.delete(0);
         ComentarioDAO comentarioDAO = new ComentarioDAO();
-        Comentario comentario = new Comentario();
+        ComentarioT comentario = new ComentarioT();
         comentario.setTexto("AAAAAAAAAAAAH");
         comentario.setFechaHora(LocalDateTime.now());
         comentario.setIdUsuario(0);

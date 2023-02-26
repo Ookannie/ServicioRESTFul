@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelos.Publicacion;
+import modelos.PublicacionT;
 
 /**
  *
  * @author
  */
-public class PublicacionDAO implements IDAO<Publicacion> {
+public class PublicacionDAO implements IDAO<PublicacionT> {
 
     private Connection conexion;
 
@@ -33,15 +33,15 @@ public class PublicacionDAO implements IDAO<Publicacion> {
     }
 
     @Override
-    public Publicacion getById(int id) {
+    public PublicacionT getById(int id) {
         String sql = "SELECT * FROM publicaciones WHERE ID = ?";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            Publicacion publicacion = null;
+            PublicacionT publicacion = null;
             if (resultSet.next()) {
-                publicacion = new Publicacion(
+                publicacion = new PublicacionT(
                         resultSet.getInt("ID"),
                         LocalDateTime.parse(resultSet.getString("FechaHora")),
                         resultSet.getString("Titulo"),
@@ -59,14 +59,14 @@ public class PublicacionDAO implements IDAO<Publicacion> {
     }
 
     @Override
-    public List<Publicacion> getAll() {
+    public List<PublicacionT> getAll() {
         String sql = "SELECT * FROM publicaciones";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
-            List<Publicacion> publicaciones = new ArrayList<>();
+            List<PublicacionT> publicaciones = new ArrayList<>();
             while (resultSet.next()) {
-                Publicacion publicacion = new Publicacion(
+                PublicacionT publicacion = new PublicacionT(
                         resultSet.getInt("ID"),
                         LocalDateTime.parse(resultSet.getString("FechaHora")),
                         resultSet.getString("Titulo"),
@@ -84,8 +84,116 @@ public class PublicacionDAO implements IDAO<Publicacion> {
         }
     }
 
+    public List<PublicacionT> findByTitle(String titulo) {
+        String sql = "SELECT * FROM publicaciones WHERE Titulo LIKE ?";
+        try {
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setString(1, "%" + titulo + "%");
+            ResultSet resultSet = statement.executeQuery();
+            List<PublicacionT> publicaciones = new ArrayList<>();
+            while (resultSet.next()) {
+                PublicacionT publicacion = new PublicacionT(
+                        resultSet.getInt("ID"),
+                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        resultSet.getString("Titulo"),
+                        resultSet.getString("Texto"),
+                        resultSet.getInt("ID_Usr")
+                );
+                publicaciones.add(publicacion);
+            }
+            resultSet.close();
+            statement.close();
+            return publicaciones;
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar publicaciones por título en la base de datos: " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public List<PublicacionT> findByUserName(String nombreUsuario) {
+        String sql = "SELECT * FROM publicaciones p JOIN usuarios u ON p.ID_Usr = u.ID WHERE u.NombreUsuario LIKE ?";
+        try {
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setString(1, "%" + nombreUsuario + "%");
+            ResultSet resultSet = statement.executeQuery();
+            List<PublicacionT> publicaciones = new ArrayList<>();
+            while (resultSet.next()) {
+                PublicacionT publicacion = new PublicacionT(
+                        resultSet.getInt("ID"),
+                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        resultSet.getString("Titulo"),
+                        resultSet.getString("Texto"),
+                        resultSet.getInt("ID_Usr")
+                );
+                publicaciones.add(publicacion);
+            }
+            resultSet.close();
+            statement.close();
+            return publicaciones;
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar publicaciones por nombre de usuario en la base de datos: " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public List<PublicacionT> findByDateRange(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        String sql = "SELECT * FROM publicaciones WHERE FechaHora BETWEEN ? AND ?";
+        try {
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setString(1, fechaInicio.toString());
+            statement.setString(2, fechaFin.toString());
+            ResultSet resultSet = statement.executeQuery();
+            List<PublicacionT> publicaciones = new ArrayList<>();
+            while (resultSet.next()) {
+                PublicacionT publicacion = new PublicacionT(
+                        resultSet.getInt("ID"),
+                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        resultSet.getString("Titulo"),
+                        resultSet.getString("Texto"),
+                        resultSet.getInt("ID_Usr")
+                );
+                publicaciones.add(publicacion);
+            }
+            resultSet.close();
+            statement.close();
+            return publicaciones;
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar las publicaciones por rango de fechas en la base de datos: " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public List<PublicacionT> find(String titulo, String nombreUsuario, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        String sql = "SELECT * FROM publicaciones p INNER JOIN usuarios u ON p.ID_Usr = u.ID WHERE p.Titulo LIKE ? AND u.Nombre LIKE ? AND p.FechaHora BETWEEN ? AND ?";
+        try {
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setString(1, "%" + titulo + "%");
+            statement.setString(2, "%" + nombreUsuario + "%");
+            statement.setString(3, fechaInicio.toString());
+            statement.setString(4, fechaFin.toString());
+            ResultSet resultSet = statement.executeQuery();
+            List<PublicacionT> publicaciones = new ArrayList<>();
+            while (resultSet.next()) {
+                PublicacionT publicacion = new PublicacionT(
+                        resultSet.getInt("ID"),
+                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        resultSet.getString("Titulo"),
+                        resultSet.getString("Texto"),
+                        resultSet.getInt("ID_Usr")
+                );
+                publicaciones.add(publicacion);
+            }
+            resultSet.close();
+            statement.close();
+            return publicaciones;
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar las publicaciones en la base de datos: " + ex.getMessage());
+            return null;
+        }
+    }
+
     @Override
-    public boolean create(Publicacion publicacion) {
+    public boolean create(PublicacionT publicacion) {
         String sql = "INSERT INTO publicaciones (ID, FechaHora, Titulo, Texto, ID_Usr) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
@@ -104,7 +212,7 @@ public class PublicacionDAO implements IDAO<Publicacion> {
     }
 
     @Override
-    public boolean update(Publicacion publicacion) {
+    public boolean update(PublicacionT publicacion) {
         String sql = "UPDATE publicaciones SET FechaHora = ?, Titulo = ?, Texto = ?, ID_Usr = ? WHERE ID = ?";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);

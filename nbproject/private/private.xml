@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Temp/ITSON/distribuidos/ServicioRESTFul/src/java/conexion/ConexionSQLite.java</file>
             <file>file:/C:/Temp/ITSON/distribuidos/ServicioRESTFul/src/java/daos/UsuarioDAO.java</file>
-            <file>file:/C:/Temp/ITSON/distribuidos/ServicioRESTFul/src/java/pruebas/Pruebas.java</file>
-            <file>file:/C:/Temp/ITSON/distribuidos/ServicioRESTFul/src/java/daos/IDAO.java</file>
+            <file>file:/C:/Temp/ITSON/distribuidos/ServicioRESTFul/src/java/daos/ComentarioDAO.java</file>
+            <file>file:/C:/Temp/ITSON/distribuidos/ServicioRESTFul/src/java/daos/PublicacionDAO.java</file>
+            <file>file:/C:/Temp/ITSON/distribuidos/ServicioRESTFul/src/java/recursos/RecursoPrueba.java</file>
             <file>file:/C:/Temp/ITSON/distribuidos/ServicioRESTFul/src/java/recursos/RecursoUsuario.java</file>
             <file>file:/C:/Temp/ITSON/distribuidos/ServicioRESTFul/src/java/modelos/Usuario.java</file>
+            <file>file:/C:/Temp/ITSON/distribuidos/ServicioRESTFul/src/java/modelos/Comentario.java</file>
+            <file>file:/C:/Temp/ITSON/distribuidos/ServicioRESTFul/src/java/modelos/Publicacion.java</file>
         </group>
     </open-files>
 </project-private>
