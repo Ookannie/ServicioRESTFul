@@ -29,6 +29,8 @@ public class Publicacion {
         this.autor = autor;
         this.fecha = new GregorianCalendar();
     }
+    
+    public void noHaceNada(){}
 
     
     /*************Gets y Sets************/
