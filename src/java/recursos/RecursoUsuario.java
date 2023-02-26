@@ -58,7 +58,7 @@ public class RecursoUsuario {
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsuarios() {
+    public Response getUsers() {
         //Usuario usuario = new Usuario(01, "Prueba", "prueba@gmail", "****");
         List<Usuario> userList = userService.getUsers();
 

@@ -6,7 +6,7 @@ package servicios;
 
 import java.util.List;
 import modelos.Usuario;
-import simulacionBD.DataBaseSim;
+import simulacionBD.DataBaseUser;
 
 /**
  *
@@ -14,7 +14,7 @@ import simulacionBD.DataBaseSim;
  */
 public class ServicioUsuario {
     
-    private List<Usuario> userList = DataBaseSim.getInstance().getList();
+    private List<Usuario> userList = DataBaseUser.getInstance().getList();
     
     public List<Usuario> getUsers(){
         return userList;
@@ -32,17 +32,6 @@ public class ServicioUsuario {
     public Usuario addUser(Usuario usuario){
         usuario.setId(getLast());
         userList.add(usuario);
-        return usuario;
-    }
-    
-    public Usuario updateUser(Usuario usuario){
-        int position = getPosition(usuario.getId());
-        try{
-            userList.set(position, usuario);
-        }
-        catch (IndexOutOfBoundsException e){
-            return null;
-        }
         return usuario;
     }
     

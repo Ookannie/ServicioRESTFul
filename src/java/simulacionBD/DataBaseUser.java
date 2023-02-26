@@ -14,11 +14,11 @@ import modelos.Usuario;
  * O eso creo yo...
  * @author alexj
  */
-public final class DataBaseSim {
-    private final static DataBaseSim dataBaseSim = new DataBaseSim();
+public final class DataBaseUser {
+    private final static DataBaseUser dataBaseUser = new DataBaseUser();
     private final List<Usuario> userList = new ArrayList<>();
     
-    private DataBaseSim(){
+    private DataBaseUser(){
         Usuario usuario1 = new Usuario(1, "Alex", "alex@yahoo.com", "j3j3");
         Usuario usuario2 = new Usuario(2, "Ana", "ana@live.com", "aaaaaaa");
         Usuario usuario3 = new Usuario(3, "Michel", "kotry@aol.com", "arribaLasChivas");
@@ -27,8 +27,8 @@ public final class DataBaseSim {
         userList.add(usuario3);
     }
     
-    public static DataBaseSim getInstance(){
-        return dataBaseSim;
+    public static DataBaseUser getInstance(){
+        return dataBaseUser;
     }
     
     public List<Usuario> getList(){
