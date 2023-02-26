@@ -1,7 +1,9 @@
 
 package modelos;
 import  com.fasterxml.jackson.annotation.JsonProperty;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class Usuario {
     @JsonProperty("id")
     private int id;

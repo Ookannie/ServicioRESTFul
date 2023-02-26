@@ -14,7 +14,7 @@ import javax.ws.rs.core.Application;
  * @author 
  */
 
-@ApplicationPath("/api")
+@ApplicationPath("api")
 public class Principal extends Application{
     
 }
