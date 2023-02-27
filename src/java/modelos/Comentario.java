@@ -18,11 +18,8 @@ public class Comentario {
     @JsonProperty("id")
     private int id;
     
-    @JsonProperty("fecha")
-    private Calendar fecha_hora;
-    
     @JsonProperty("fecha_hora")
-    private LocalDateTime fechaHora;
+    private Calendar fecha_hora;
     
     @JsonProperty("texto")
     private String texto;
@@ -34,20 +31,19 @@ public class Comentario {
     private int id_pub;
 
     public Comentario() {
+      this.fecha_hora = Calendar.getInstance();
     }
 
-    public Comentario(int id, Calendar fecha_hora, LocalDateTime fechaHora, String texto, int id_usr, int id_pub) {
+    public Comentario(int id, Calendar fecha_hora,  String texto, int id_usr, int id_pub) {
         this.id = id;
         this.fecha_hora = fecha_hora;
-        this.fechaHora = fechaHora;
         this.texto = texto;
         this.id_usr = id_usr;
         this.id_pub = id_pub;
     }
 
-    public Comentario(int id, LocalDateTime fechaHora, String texto, int id_usr, int id_pub) {
+    public Comentario(int id, String texto, int id_usr, int id_pub) {
         this.id = id;
-        this.fechaHora = fechaHora;
         this.texto = texto;
         this.id_usr = id_usr;
         this.id_pub = id_pub;
@@ -62,9 +58,8 @@ public class Comentario {
         this.fecha_hora = new GregorianCalendar();
     }
 
-    public Comentario(Calendar fecha_hora, LocalDateTime fechaHora, String texto, int id_usr, int id_pub) {
+    public Comentario(Calendar fecha_hora, String texto, int id_usr, int id_pub) {
         this.fecha_hora = fecha_hora;
-        this.fechaHora = fechaHora;
         this.texto = texto;
         this.id_usr = id_usr;
         this.id_pub = id_pub;
@@ -72,9 +67,6 @@ public class Comentario {
     
     
 
-    /**
-     * ***********Gets y Sets***********
-     */
     public int getId() {
         return id;
     }
@@ -115,13 +107,7 @@ public class Comentario {
         this.id_pub = id_pub;
     }
 
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
-    }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
-    }
     
     
 }

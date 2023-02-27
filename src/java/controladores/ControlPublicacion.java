@@ -6,6 +6,7 @@ package controladores;
 
 import daos.PublicacionDAO;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 import modelos.Publicacion;
 
@@ -34,7 +35,7 @@ public class ControlPublicacion {
         return publicacionDAO.find(titulo, nombreUsuario, fechaInicio, fechaFin);
     }
 
-    public List<Publicacion> findByDateRange(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+    public List<Publicacion> findByDateRange(Calendar fechaInicio, Calendar fechaFin) {
         return publicacionDAO.findByDateRange(fechaInicio, fechaFin);
     }
 

@@ -6,6 +6,7 @@ package controladores;
 
 import daos.ComentarioDAO;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 import modelos.Comentario;
 
@@ -41,7 +42,7 @@ public class ControlComentario {
         return comentarioDAO.findByIdPublicacion(idPublicacion);
     }
     
-     public List<Comentario> findByDateRange(LocalDateTime fechaInicio, LocalDateTime fechaFin){
+     public List<Comentario> findByDateRange(Calendar fechaInicio, Calendar fechaFin){
          return comentarioDAO.findByDateRange(fechaInicio, fechaFin);
      }
 

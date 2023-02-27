@@ -6,6 +6,7 @@ package recursos;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Calendar;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -77,6 +78,29 @@ public class RecursoPublicacion {
         Publicacion publicacion = publicationService.getPublicationByTitle(title);
 
         return Response.status(Response.Status.OK).entity(objectToString(publicacion)).build();
+    }
+
+    @GET
+    @Path("/name={publicationName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPublicationByName(@PathParam("publicationName") String name) {
+        List<Publicacion> publicaciones = publicationService.getPublicationesByUserName(name);
+
+        return Response.status(Response.Status.OK).entity(objectToString(publicaciones)).build();
+    }
+
+    @GET
+    @Path("/startDate={startDate}&endDate={endDate}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPublicationByRange(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) {
+
+        Calendar fechaInicio = Calendar.getInstance();
+        fechaInicio.setTimeInMillis(Long.parseLong(startDate));
+        Calendar fechaFin = Calendar.getInstance();
+        fechaFin.setTimeInMillis(Long.parseLong(endDate));
+        List<Publicacion> publicaciones = publicationService.getPublicationesByDateRange(fechaInicio, fechaFin);
+
+        return Response.status(Response.Status.OK).entity(objectToString(publicaciones)).build();
     }
 
     @POST

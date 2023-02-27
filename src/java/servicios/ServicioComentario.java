@@ -4,8 +4,11 @@
  */
 package servicios;
 
+import controladores.ControlComentario;
+import java.util.Calendar;
 import java.util.List;
 import modelos.Comentario;
+import modelos.Publicacion;
 import simulacionBD.DataBaseComment;
 
 /**
@@ -13,46 +16,66 @@ import simulacionBD.DataBaseComment;
  * @author alexj
  */
 public class ServicioComentario {
-    
+
     private List<Comentario> commentList = DataBaseComment.getInstance().getList();
-    
-    public List<Comentario> getComments(){
+    private ControlComentario controlComentario;
+
+    public ServicioComentario() {
+        this.controlComentario = new ControlComentario();
+    }
+
+    public List<Comentario> getComments() {
         return commentList;
     }
-    
-    public Comentario getComment(int id){
-        for(Comentario comentario : commentList){
-            if(comentario.getId() == id)
+
+    public Comentario getComment(int id) {
+        for (Comentario comentario : commentList) {
+            if (comentario.getId() == id) {
                 return comentario;
+            }
         }
         return null;
     }
-    
-    public Comentario addComment(Comentario comentario){
-        comentario.setId(getLast());
-        commentList.add(comentario);
+
+    public List<Comentario> getCommentsByUserName(String comentarioName) {
+        List<Comentario> comentarios = controlComentario.findByUserName(comentarioName);
+        return comentarios;
+    }
+
+    public List<Comentario> getCommentsByPublicationID(int idPub) {
+        List<Comentario> comentarios = controlComentario.findByIdPublicacion(idPub);
+        return comentarios;
+    }
+
+    public List<Comentario> getCommentsByDateRange(Calendar fechaInicio, Calendar fechaFin) {
+        List<Comentario> comentarios = controlComentario.findByDateRange(fechaInicio, fechaFin);
+        return comentarios;
+    }
+
+    public Comentario addComment(Comentario comentario) {
+        controlComentario.create(comentario);
         return comentario;
     }
-    
-    public void deleteComment(int id){
+
+    public void deleteComment(int id) {
         int position = getPosition(id);
         commentList.remove(position);
     }
-    
-    private int getPosition(int id){
-        for (int i = 0; i< commentList.size(); i++){
-            if (commentList.get(i).getId() == id){
+
+    private int getPosition(int id) {
+        for (int i = 0; i < commentList.size(); i++) {
+            if (commentList.get(i).getId() == id) {
                 return i;
             }
         }
         return -1;
     }
-    private int getLast(){
+
+    private int getLast() {
         int size = commentList.size();
-        if (size > 0){
+        if (size > 0) {
             return commentList.get(size - 1).getId() + 1;
-        }
-        else{
+        } else {
             return 1;
         }
     }

@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,9 +42,11 @@ public class ComentarioDAO implements IDAO<Comentario> {
             ResultSet resultSet = statement.executeQuery();
             Comentario comentario = null;
             if (resultSet.next()) {
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTimeInMillis(resultSet.getLong("FechaHora"));
                 comentario = new Comentario(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr"),
                         resultSet.getInt("ID_Pub")
@@ -66,9 +69,11 @@ public class ComentarioDAO implements IDAO<Comentario> {
             ResultSet resultSet = statement.executeQuery();
             List<Comentario> comentarios = new ArrayList<>();
             while (resultSet.next()) {
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTimeInMillis(resultSet.getLong("FechaHora"));
                 Comentario comentario = new Comentario(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr"),
                         resultSet.getInt("ID_Pub")
@@ -95,9 +100,11 @@ public class ComentarioDAO implements IDAO<Comentario> {
             ResultSet resultSet = statement.executeQuery();
             List<Comentario> comentarios = new ArrayList<>();
             while (resultSet.next()) {
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTimeInMillis(resultSet.getLong("FechaHora"));
                 Comentario comentario = new Comentario(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr"),
                         resultSet.getInt("ID_Pub")
@@ -116,16 +123,18 @@ public class ComentarioDAO implements IDAO<Comentario> {
     public List<Comentario> findByUserName(String nombreUsuario) {
         String sql = "SELECT c.* FROM comentarios c "
                 + "INNER JOIN usuarios u ON c.ID_Usr = u.ID "
-                + "WHERE u.NombreUsuario = ?";
+                + "WHERE u.NombreCompleto = ?";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setString(1, nombreUsuario);
             ResultSet resultSet = statement.executeQuery();
             List<Comentario> comentarios = new ArrayList<>();
             while (resultSet.next()) {
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTimeInMillis(resultSet.getLong("FechaHora"));
                 Comentario comentario = new Comentario(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr"),
                         resultSet.getInt("ID_Pub")
@@ -149,9 +158,11 @@ public class ComentarioDAO implements IDAO<Comentario> {
             ResultSet resultSet = statement.executeQuery();
             List<Comentario> comentarios = new ArrayList<>();
             while (resultSet.next()) {
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTimeInMillis(resultSet.getLong("FechaHora"));
                 Comentario comentario = new Comentario(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr"),
                         resultSet.getInt("ID_Pub")
@@ -167,18 +178,20 @@ public class ComentarioDAO implements IDAO<Comentario> {
         }
     }
 
-    public List<Comentario> findByDateRange(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+    public List<Comentario> findByDateRange(Calendar fechaInicio, Calendar fechaFin) {
         String sql = "SELECT * FROM comentarios WHERE FechaHora BETWEEN ? AND ?";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
-            statement.setString(1, fechaInicio.toString());
-            statement.setString(2, fechaFin.toString());
+            statement.setDate(1, new java.sql.Date(fechaInicio.getTimeInMillis()));
+            statement.setDate(2, new java.sql.Date(fechaFin.getTimeInMillis()));
             ResultSet resultSet = statement.executeQuery();
             List<Comentario> comentarios = new ArrayList<>();
             while (resultSet.next()) {
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTimeInMillis(resultSet.getLong("FechaHora"));
                 Comentario comentario = new Comentario(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr"),
                         resultSet.getInt("ID_Pub")
@@ -200,7 +213,7 @@ public class ComentarioDAO implements IDAO<Comentario> {
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
             //statement.setInt(1, comentario.getId());
-            statement.setString(1, comentario.getFechaHora().toString());
+            statement.setDate(1,  new java.sql.Date(comentario.getFecha().getTimeInMillis()));
             statement.setString(2, comentario.getTexto());
             statement.setInt(3, comentario.getId_usr());
             statement.setInt(4, comentario.getId_pub());
