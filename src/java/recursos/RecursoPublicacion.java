@@ -24,7 +24,6 @@ import servicios.ServicioPublicacion;
  *
  * @author alexj
  */
-
 @Path("/publicacion")
 public class RecursoPublicacion {
 
@@ -52,36 +51,45 @@ public class RecursoPublicacion {
 
         return publicacion;
     }
-    
+
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPublicaciones() {
         List<Publicacion> publicationList = publicationService.getPublications();
-        
+
         return Response.status(Response.Status.OK).entity(objectToString(publicationList)).build();
     }
 
     @GET
     @Path("/{publicationId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPublication(@PathParam("publicationId") int id){
+    public Response getPublication(@PathParam("publicationId") int id) {
         Publicacion publicacion = publicationService.getPublication(id);
-        
+
         return Response.status(Response.Status.OK).entity(objectToString(publicacion)).build();
     }
-    
+
+    @GET
+    @Path("/title={publicationTitle}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPublicationByTitle(@PathParam("publicationTitle") String title) {
+        Publicacion publicacion = publicationService.getPublicationByTitle(title);
+
+        return Response.status(Response.Status.OK).entity(objectToString(publicacion)).build();
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addPublication(String publicacion){
+    public Response addPublication(String publicacion) {
         publicationService.addPublication(stringToPublication(publicacion));
         return Response.status(Response.Status.OK).entity(publicacion).build();
     }
-    
+
     @DELETE
     @Path("/{publicationId}")
-    public void deletePublication(@PathParam("publicationId") int id){
+    public void deletePublication(@PathParam("publicationId") int id) {
         publicationService.deletePublication(id);
     }
 }

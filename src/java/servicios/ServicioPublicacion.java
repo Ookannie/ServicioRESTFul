@@ -4,6 +4,7 @@
  */
 package servicios;
 
+import controladores.ControlPublicacion;
 import java.util.List;
 import modelos.Publicacion;
 import simulacionBD.DataBasePublication;
@@ -14,6 +15,13 @@ import simulacionBD.DataBasePublication;
  */
 public class ServicioPublicacion {
     private List<Publicacion> publicationList = DataBasePublication.getInstance().getList();
+    private ControlPublicacion controlPublicacion;
+
+    public ServicioPublicacion() {
+        this.controlPublicacion = new ControlPublicacion();
+    }
+    
+    
     
     public List<Publicacion> getPublications(){
         return publicationList;
@@ -28,9 +36,14 @@ public class ServicioPublicacion {
         return null;
     }
     
+    public Publicacion getPublicationByTitle(String title){
+        return controlPublicacion.findByTitle(title).get(0);
+    }
+    
     public Publicacion addPublication(Publicacion publicacion){
-        publicacion.setId(getLast());
-        publicationList.add(publicacion);
+        //publicacion.setId(getLast());
+        //publicationList.add(publicacion);
+        controlPublicacion.create(publicacion);
         return publicacion;
     }
     

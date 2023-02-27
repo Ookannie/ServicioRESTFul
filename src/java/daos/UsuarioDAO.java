@@ -162,13 +162,13 @@ public class UsuarioDAO implements IDAO<Usuario> {
 
     @Override
     public boolean create(Usuario usuario) {
-        String sql = "INSERT INTO usuarios (ID, NombreCompleto, Correo, Contrasenia) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO usuarios (NombreCompleto, Correo, Contrasenia) VALUES (?, ?, ?)";
         try {
             PreparedStatement query = conexion.prepareStatement(sql);
-            query.setInt(1, usuario.getId());
-            query.setString(2, usuario.getNombreCompleto());
-            query.setString(3, usuario.getCorreo());
-            query.setString(4, usuario.getContrasenia());
+            //query.setInt(1, usuario.getId());
+            query.setString(1, usuario.getNombreCompleto());
+            query.setString(2, usuario.getCorreo());
+            query.setString(3, usuario.getContrasenia());
             query.executeUpdate();
             query.close();
             return true;

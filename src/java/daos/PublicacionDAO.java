@@ -9,8 +9,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,9 +45,14 @@ public class PublicacionDAO implements IDAO<Publicacion> {
             ResultSet resultSet = statement.executeQuery();
             Publicacion publicacion = null;
             if (resultSet.next()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date parsedDate = dateFormat.parse(resultSet.getString("FechaHora"));
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTime(parsedDate);
+
                 publicacion = new Publicacion(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Titulo"),
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr")
@@ -54,6 +63,9 @@ public class PublicacionDAO implements IDAO<Publicacion> {
             return publicacion;
         } catch (SQLException ex) {
             System.out.println("Error al buscar la publicación en la base de datos: " + ex.getMessage());
+            return null;
+        } catch (ParseException ex) {
+            Logger.getLogger(PublicacionDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -66,9 +78,13 @@ public class PublicacionDAO implements IDAO<Publicacion> {
             ResultSet resultSet = statement.executeQuery();
             List<Publicacion> publicaciones = new ArrayList<>();
             while (resultSet.next()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date parsedDate = dateFormat.parse(resultSet.getString("FechaHora"));
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTime(parsedDate);
                 Publicacion publicacion = new Publicacion(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Titulo"),
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr")
@@ -81,10 +97,13 @@ public class PublicacionDAO implements IDAO<Publicacion> {
         } catch (SQLException ex) {
             System.out.println("Error al listar las publicaciones de la base de datos: " + ex.getMessage());
             return null;
+        } catch (ParseException ex) {
+            Logger.getLogger(PublicacionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 
-    public List<Publicacion> findByTitle(String titulo) {
+    public List<Publicacion> findByTitle(String titulo) throws ParseException {
         String sql = "SELECT * FROM publicaciones WHERE Titulo LIKE ?";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
@@ -92,9 +111,13 @@ public class PublicacionDAO implements IDAO<Publicacion> {
             ResultSet resultSet = statement.executeQuery();
             List<Publicacion> publicaciones = new ArrayList<>();
             while (resultSet.next()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date parsedDate = dateFormat.parse(resultSet.getString("FechaHora"));
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTime(parsedDate);
                 Publicacion publicacion = new Publicacion(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Titulo"),
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr")
@@ -118,9 +141,13 @@ public class PublicacionDAO implements IDAO<Publicacion> {
             ResultSet resultSet = statement.executeQuery();
             List<Publicacion> publicaciones = new ArrayList<>();
             while (resultSet.next()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date parsedDate = dateFormat.parse(resultSet.getString("FechaHora"));
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTime(parsedDate);
                 Publicacion publicacion = new Publicacion(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Titulo"),
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr")
@@ -133,7 +160,11 @@ public class PublicacionDAO implements IDAO<Publicacion> {
         } catch (SQLException ex) {
             System.out.println("Error al buscar publicaciones por nombre de usuario en la base de datos: " + ex.getMessage());
             return null;
+        } catch (ParseException ex) {
+            Logger.getLogger(PublicacionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
+        
     }
 
     public List<Publicacion> findByDateRange(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
@@ -145,9 +176,13 @@ public class PublicacionDAO implements IDAO<Publicacion> {
             ResultSet resultSet = statement.executeQuery();
             List<Publicacion> publicaciones = new ArrayList<>();
             while (resultSet.next()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date parsedDate = dateFormat.parse(resultSet.getString("FechaHora"));
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTime(parsedDate);
                 Publicacion publicacion = new Publicacion(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Titulo"),
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr")
@@ -159,6 +194,9 @@ public class PublicacionDAO implements IDAO<Publicacion> {
             return publicaciones;
         } catch (SQLException ex) {
             System.out.println("Error al buscar las publicaciones por rango de fechas en la base de datos: " + ex.getMessage());
+            return null;
+        } catch (ParseException ex) {
+            Logger.getLogger(PublicacionDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -174,9 +212,13 @@ public class PublicacionDAO implements IDAO<Publicacion> {
             ResultSet resultSet = statement.executeQuery();
             List<Publicacion> publicaciones = new ArrayList<>();
             while (resultSet.next()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date parsedDate = dateFormat.parse(resultSet.getString("FechaHora"));
+                Calendar fecha = Calendar.getInstance();
+                fecha.setTime(parsedDate);
                 Publicacion publicacion = new Publicacion(
                         resultSet.getInt("ID"),
-                        LocalDateTime.parse(resultSet.getString("FechaHora")),
+                        fecha,
                         resultSet.getString("Titulo"),
                         resultSet.getString("Texto"),
                         resultSet.getInt("ID_Usr")
@@ -189,19 +231,22 @@ public class PublicacionDAO implements IDAO<Publicacion> {
         } catch (SQLException ex) {
             System.out.println("Error al buscar las publicaciones en la base de datos: " + ex.getMessage());
             return null;
+        } catch (ParseException ex) {
+            Logger.getLogger(PublicacionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 
     @Override
     public boolean create(Publicacion publicacion) {
-        String sql = "INSERT INTO publicaciones (ID, FechaHora, Titulo, Texto, ID_Usr) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO publicaciones (FechaHora, Titulo, Texto, ID_Usr) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
-            statement.setInt(1, publicacion.getId());
-            statement.setString(2, publicacion.getFechaHora().toString());
-            statement.setString(3, publicacion.getTitulo());
-            statement.setString(4, publicacion.getTexto());
-            statement.setInt(5, publicacion.getIdUsr());
+            //statement.setInt(1, publicacion.getId());
+            statement.setString(1, publicacion.getFecha().toString());
+            statement.setString(2, publicacion.getTitulo());
+            statement.setString(3, publicacion.getTexto());
+            statement.setInt(4, publicacion.getIdUsr());
             statement.executeUpdate();
             statement.close();
             return true;
@@ -216,7 +261,7 @@ public class PublicacionDAO implements IDAO<Publicacion> {
         String sql = "UPDATE publicaciones SET FechaHora = ?, Titulo = ?, Texto = ?, ID_Usr = ? WHERE ID = ?";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
-            statement.setString(1, publicacion.getFechaHora().toString());
+            statement.setString(1, publicacion.getFecha().toString());
             statement.setString(2, publicacion.getTitulo());
             statement.setString(3, publicacion.getTexto());
             statement.setInt(4, publicacion.getIdUsr());

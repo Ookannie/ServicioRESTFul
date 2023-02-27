@@ -5,8 +5,9 @@
 package modelos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -17,60 +18,53 @@ public class Publicacion {
 
     @JsonProperty("id")
     private int id;
-    
-    @JsonProperty("fecha")
-    private Calendar fecha;
-    
+
     @JsonProperty("fecha_hora")
-    private LocalDateTime fechaHora;
-    
+    private Calendar fecha_hora;
+
     @JsonProperty("titulo")
     private String titulo;
-    
+
     @JsonProperty("texto")
     private String texto;
-    
+
     @JsonProperty("id_usr")
     private int idUsr;
 
     public Publicacion() {
+       this.fecha_hora = Calendar.getInstance();
+
     }
 
-    public Publicacion(int id, LocalDateTime fechaHora, String titulo, String texto, int idUsr) {
+    public Publicacion(int id, String titulo, String texto, int idUsr) {
         this.id = id;
-        this.fechaHora = fechaHora;
-        this.titulo = titulo;
-        this.texto = texto;
-        this.idUsr = idUsr;
-    }
-    
-    
-
-    public Publicacion(LocalDateTime fechaHora, String titulo, String texto, int idUsr) {
-        this.fechaHora = fechaHora;
         this.titulo = titulo;
         this.texto = texto;
         this.idUsr = idUsr;
     }
 
-    public Publicacion(Calendar fecha, LocalDateTime fechaHora, String titulo, String texto, int idUsr) {
-        this.fecha = fecha;
-        this.fechaHora = fechaHora;
+    public Publicacion(Calendar fecha, String titulo, String texto, int idUsr) {
+        this.fecha_hora = fecha;
         this.titulo = titulo;
         this.texto = texto;
         this.idUsr = idUsr;
     }
-    
-    
+
+    public Publicacion(int id, Calendar fecha_hora, String titulo, String texto, int idUsr) {
+        this.id = id;
+        this.fecha_hora = fecha_hora;
+        this.titulo = titulo;
+        this.texto = texto;
+        this.idUsr = idUsr;
+    }
 
     public Publicacion(int id, String titulo, String texto, String autor) {
         this.id = id;
         this.titulo = titulo;
         this.texto = texto;
-        this.fecha = new GregorianCalendar();
+        this.fecha_hora = new GregorianCalendar();
     }
 
-  
     public int getId() {
         return id;
     }
@@ -80,19 +74,11 @@ public class Publicacion {
     }
 
     public Calendar getFecha() {
-        return fecha;
+        return fecha_hora;
     }
 
     public void setFecha(Calendar fecha) {
-        this.fecha = fecha;
-    }
-
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
-    }
-
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
+        this.fecha_hora = fecha;
     }
 
     public int getIdUsr() {

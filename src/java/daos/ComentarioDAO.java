@@ -196,14 +196,14 @@ public class ComentarioDAO implements IDAO<Comentario> {
 
     @Override
     public boolean create(Comentario comentario) {
-        String sql = "INSERT INTO comentarios (ID, FechaHora, Texto, ID_Usr, ID_Pub) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO comentarios (FechaHora, Texto, ID_Usr, ID_Pub) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
-            statement.setInt(1, comentario.getId());
-            statement.setString(2, comentario.getFechaHora().toString());
-            statement.setString(3, comentario.getTexto());
-            statement.setInt(4, comentario.getId_usr());
-            statement.setInt(5, comentario.getId_pub());
+            //statement.setInt(1, comentario.getId());
+            statement.setString(1, comentario.getFechaHora().toString());
+            statement.setString(2, comentario.getTexto());
+            statement.setInt(3, comentario.getId_usr());
+            statement.setInt(4, comentario.getId_pub());
             statement.executeUpdate();
             statement.close();
             return true;

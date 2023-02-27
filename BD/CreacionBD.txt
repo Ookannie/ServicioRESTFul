@@ -8,7 +8,8 @@ CREATE TABLE usuarios (
   ID INT PRIMARY KEY,
   NombreCompleto VARCHAR(50),
   Correo VARCHAR(100),
-  Contrasenia VARCHAR(10)
+  Contrasenia VARCHAR(10),
+  PRIMARY KEY("ID" AUTOINCREMENT)
 );
 
 -- Crear la tabla publicaciones
@@ -18,7 +19,8 @@ CREATE TABLE publicaciones (
   Titulo VARCHAR(100),
   Texto VARCHAR(255),
   ID_Usr INT,
-  FOREIGN KEY (ID_Usr) REFERENCES Usuario(ID)
+  FOREIGN KEY (ID_Usr) REFERENCES usuarios(ID),
+  PRIMARY KEY("ID" AUTOINCREMENT)
 );
 
 -- Crear la tabla comentarios
@@ -28,6 +30,7 @@ CREATE TABLE comentarios (
   Texto VARCHAR(255),
   ID_Usr INT,
   ID_Pub INT,
-  FOREIGN KEY (ID_Usr) REFERENCES Usuario(ID),
-  FOREIGN KEY (ID_Pub) REFERENCES Publicacion(ID)
+  FOREIGN KEY (ID_Usr) REFERENCES usuarios(ID),
+  FOREIGN KEY (ID_Pub) REFERENCES publicaciones(ID),
+  PRIMARY KEY("ID" AUTOINCREMENT)
 );
