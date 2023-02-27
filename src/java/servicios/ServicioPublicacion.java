@@ -24,16 +24,11 @@ public class ServicioPublicacion {
     }
 
     public List<Publicacion> getPublications() {
-        return publicationList;
+        return controlPublicacion.getAll();
     }
 
     public Publicacion getPublication(int id) {
-        for (Publicacion publicacion : publicationList) {
-            if (publicacion.getId() == id) {
-                return publicacion;
-            }
-        }
-        return null;
+        return controlPublicacion.getById(id);
     }
 
     public Publicacion getPublicationByTitle(String title) {
@@ -56,26 +51,30 @@ public class ServicioPublicacion {
         return publicacion;
     }
 
+    public Publicacion updatePublication(Publicacion publicacion) {
+        controlPublicacion.update(publicacion);
+        return publicacion;
+    }
+
     public void deletePublication(int id) {
-        int position = getPosition(id);
-        publicationList.remove(position);
+        controlPublicacion.delete(id);
     }
 
-    private int getPosition(int id) {
-        for (int i = 0; i < publicationList.size(); i++) {
-            if (publicationList.get(i).getId() == id) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private int getLast() {
-        int size = publicationList.size();
-        if (size > 0) {
-            return publicationList.get(size - 1).getId() + 1;
-        } else {
-            return 1;
-        }
-    }
+//    private int getPosition(int id) {
+//        for (int i = 0; i < publicationList.size(); i++) {
+//            if (publicationList.get(i).getId() == id) {
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
+//
+//    private int getLast() {
+//        int size = publicationList.size();
+//        if (size > 0) {
+//            return publicationList.get(size - 1).getId() + 1;
+//        } else {
+//            return 1;
+//        }
+//    }
 }

@@ -25,16 +25,11 @@ public class ServicioComentario {
     }
 
     public List<Comentario> getComments() {
-        return commentList;
+        return controlComentario.getAll();
     }
 
     public Comentario getComment(int id) {
-        for (Comentario comentario : commentList) {
-            if (comentario.getId() == id) {
-                return comentario;
-            }
-        }
-        return null;
+        return controlComentario.getById(id);
     }
 
     public List<Comentario> getCommentsByUserName(String comentarioName) {
@@ -57,26 +52,30 @@ public class ServicioComentario {
         return comentario;
     }
 
+    public Comentario updateComment(Comentario comentario) {
+        controlComentario.update(comentario);
+        return comentario;
+    }
+
     public void deleteComment(int id) {
-        int position = getPosition(id);
-        commentList.remove(position);
+        controlComentario.delete(id);
     }
 
-    private int getPosition(int id) {
-        for (int i = 0; i < commentList.size(); i++) {
-            if (commentList.get(i).getId() == id) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private int getLast() {
-        int size = commentList.size();
-        if (size > 0) {
-            return commentList.get(size - 1).getId() + 1;
-        } else {
-            return 1;
-        }
-    }
+//    private int getPosition(int id) {
+//        for (int i = 0; i < commentList.size(); i++) {
+//            if (commentList.get(i).getId() == id) {
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
+//
+//    private int getLast() {
+//        int size = commentList.size();
+//        if (size > 0) {
+//            return commentList.get(size - 1).getId() + 1;
+//        } else {
+//            return 1;
+//        }
+//    }
 }

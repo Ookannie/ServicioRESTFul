@@ -15,7 +15,6 @@ import simulacionBD.DataBaseUser;
  */
 public class ServicioUsuario {
 
-    private List<Usuario> userList = DataBaseUser.getInstance().getList();
     private ControlUsuario controlUsuario;
 
     public ServicioUsuario() {
@@ -23,16 +22,11 @@ public class ServicioUsuario {
     }
 
     public List<Usuario> getUsers() {
-        return userList;
+        return controlUsuario.getAll();
     }
 
     public Usuario getUser(int id) {
-        for (Usuario usuario : userList) {
-            if (usuario.getId() == id) {
-                return usuario;
-            }
-        }
-        return null;
+        return controlUsuario.getById(id);
     }
 
     public Usuario getUserByName(String name) {
@@ -50,26 +44,16 @@ public class ServicioUsuario {
         return usuario;
     }
 
+    public Usuario updateUser(Usuario usuario) {
+        //usuario.setId(getLast());
+        controlUsuario.update(usuario);
+        //userList.add(usuario);
+        return usuario;
+    }
+
     public void deleteUser(int id) {
-        int position = getPosition(id);
-        userList.remove(position);
+        //int position = getPosition(id);
+        controlUsuario.delete(id);
     }
 
-    private int getPosition(int id) {
-        for (int i = 0; i < userList.size(); i++) {
-            if (userList.get(i).getId() == id) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private int getLast() {
-        int size = userList.size();
-        if (size > 0) {
-            return userList.get(size - 1).getId() + 1;
-        } else {
-            return 1;
-        }
-    }
 }
